@@ -104,7 +104,7 @@ Claude ── Metricool (connecteur claude.ai, marque excess.ofc)
 ```
 
 - **Hébergement** : Vercel, projet `excess-planning` (équipe `kiliandekens-2863's projects`), site statique.
-- **Déploiement** : chaque push sur `main` de ce dépôt met le site à jour automatiquement.
+- **Déploiement** : depuis la branche `main` de ce dépôt. Pour que chaque push mette le site à jour automatiquement, le dépôt doit être connecté au projet dans Vercel (Settings → Git → Connect Git Repository). Sans cette connexion, Claude redéploie à la demande depuis `main`.
 - **Clé Supabase** : la clé *publishable* est écrite dans `index.html`. C'est normal et sans risque : elle est faite pour être publique, la sécurité vient des règles RLS. Ne **jamais** mettre la clé `service_role` dans le code.
 
 ### Pourquoi Excess est dans le projet Supabase « App sport »
@@ -155,9 +155,10 @@ L'app affiche les nouveaux chiffres immédiatement (Realtime).
 
 ## 8. Hébergement Vercel et domaine
 
-- Projet Vercel : `excess-planning`, relié à ce dépôt GitHub (branche `main`).
+- Projet Vercel : `excess-planning` (id `prj_1xvsk9lX2NX1IPoMZ2KO9sY93mgz`), déployé depuis ce dépôt GitHub (branche `main`).
 - Framework : aucun (site statique). Pas de commande de build.
-- Domaine : `excess.kadeon.be`, rattaché au projet.
+- Domaine : `excess.kadeon.be`, rattaché au projet. C'est la seule adresse publique : les adresses `*.vercel.app` sont protégées par la connexion Vercel.
+- Déploiement automatique à chaque push : à activer une fois dans Vercel, projet `excess-planning` → Settings → Git → Connect Git Repository → `kiliandekens-debug/excess-planning`.
 - Le DNS de `kadeon.be` est géré chez **Combell** (`ns1.combell.eu`, `ns3/ns4.combell.net`). Enregistrement nécessaire dans la zone DNS Combell :
 
 | Type | Nom | Valeur |
