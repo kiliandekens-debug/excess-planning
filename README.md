@@ -50,7 +50,9 @@ L'app ne publie rien sur TikTok. Elle sert à préparer, planifier et suivre.
 - La session reste ouverte sur l'appareil. Bouton « Déconnexion » en haut à droite.
 - Sur téléphone : ouvrir l'adresse dans le navigateur, puis « Ajouter à l'écran d'accueil ». L'app s'ouvre alors comme une app native.
 
-Mot de passe oublié : le réinitialiser depuis App sport ou depuis le tableau de bord Supabase (Authentication → Users).
+Sans mot de passe : bouton « Recevoir un lien de connexion par e-mail ». Le lien arrive par e-mail et connecte directement. Il faut que `https://excess.kadeon.be/**` figure dans Supabase → Authentication → URL Configuration → Redirect URLs, sinon le lien renvoie vers l'adresse principale d'App sport.
+
+Mot de passe oublié : le retrouver dans le trousseau de l'appareil (enregistré pour sport.kadeon.be) ou le réinitialiser depuis le tableau de bord Supabase (Authentication → Users).
 
 ## 3. Utiliser l'app au quotidien
 

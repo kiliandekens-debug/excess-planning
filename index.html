@@ -285,7 +285,9 @@ img{max-width:100%}
     <label>E-mail<input id="lEmail" type="email" autocomplete="username" required value="kilian.dekens@gmail.com"></label>
     <label>Mot de passe<input id="lPass" type="password" autocomplete="current-password" required></label>
     <button class="primary" id="lBtn" type="submit">Se connecter</button>
+    <button class="ghost" id="lMagic" type="button">Recevoir un lien de connexion par e-mail</button>
     <p class="err" id="lErr" hidden></p>
+    <p id="lInfo" hidden></p>
   </form>
 </div>
 
@@ -691,6 +693,16 @@ $("loginForm").addEventListener("submit",async e=>{
   if(error){$("lErr").hidden=false;$("lErr").textContent=error.message==="Invalid login credentials"?"E-mail ou mot de passe incorrect.":"Connexion impossible : "+error.message;return}
   $("lPass").value="";start();
 });
+$("lMagic").onclick=async()=>{
+  const email=$("lEmail").value.trim();$("lErr").hidden=true;$("lInfo").hidden=true;
+  if(!email){$("lEmail").focus();return}
+  $("lMagic").disabled=true;$("lMagic").textContent="Envoi…";
+  const {error}=await sb.auth.signInWithOtp({email,options:{shouldCreateUser:false,emailRedirectTo:location.origin+location.pathname}});
+  $("lMagic").disabled=false;$("lMagic").textContent="Recevoir un lien de connexion par e-mail";
+  if(error){$("lErr").hidden=false;$("lErr").textContent=/rate|seconds/i.test(error.message)?"Un lien vient déjà d'être envoyé. Attends une minute avant d'en redemander un.":"Envoi impossible : "+error.message;return}
+  $("lInfo").hidden=false;$("lInfo").textContent="Lien envoyé à "+email+". Ouvre l'e-mail sur cet appareil et touche le lien : tu arrives connecté.";
+};
+sb.auth.onAuthStateChange((ev,session)=>{if(session&&!$("gate").hidden)start()});
 $("btnOut").onclick=async()=>{await sb.auth.signOut();if(channel){sb.removeChannel(channel);channel=null}posts=[];renderAll();showGate()};
 document.addEventListener("visibilitychange",()=>{if(!document.hidden&&$("gate").hidden)load()});
 renderAll();
